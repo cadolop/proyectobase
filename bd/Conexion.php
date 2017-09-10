@@ -26,5 +26,10 @@ class Conexion
     {
         return $this->_connection->query($sql);
     }
+
+    public function exec($sql)
+    {
+        return $this->_connection->exec($sql);
+    }
 }
 ?>

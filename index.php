@@ -95,6 +95,6 @@ if (isset($_SESSION['identificacionId'])) {
 </script>
 </body>
 <footer class="bg-inverse text-white p-1" style="width: 100%; height: 50px; bottom: 0; position: fixed;">
-   <p class="text-center">© 2017 - IngnovaTec.com</p>
+   <p class="text-center">© 2017 - Corp.com</p>
 </footer>
 </html>

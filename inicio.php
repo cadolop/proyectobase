@@ -1,10 +1,15 @@
 <?php
 session_start();
 require_once 'controlador/UsuarioControlador.php';
+require_once 'controlador/PermisoControlador.php';
+require_once 'controlador/MenuControlador.php';
 
 if (isset($_SESSION['identificacionId'])) {
     $identificacionId = $_SESSION['identificacionId'];
-
+    $usuarioCtl = new UsuarioControlador();
+    $permisoCtl = new PermisoControlador();
+    $usuario    = $usuarioCtl->consultarUsuario($identificacionId);
+    $permisos   = $permisoCtl->listarPermiso($usuario->getPerfil());
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +41,23 @@ if (isset($_SESSION['identificacionId'])) {
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+<?php 
+    for ($i = 0; $i < count($permisos); $i++) {
+        $menuCtrl = new MenuControlador();
+        $menu     = $menuCtrl->consultarMenu($permisos[$i]->getMenu());
+        $permiso  = $permisos[$i]->getPermiso();
+        if ($permiso == 1) {
+            $habilitar = "";
+        } else {
+            $habilitar = " disabled";
+        }
+?>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><span class="fa fa-home" aria-hidden="true"></span> Inicio</a>
+                    <a class="nav-link<?php echo $habilitar?>" href="inicio.php?accion=<?php echo $permisos[$i]->getMenu() ?>"><span class="<?php echo $menu->getIcono()?>" aria-hidden="true"></span> <?php echo $menu->getNombre()?></a>
                 </li>
+<?php 
+    }
+?>
                 <li class="nav-item active">
                     <a class="nav-link" href="logout.php"><span class="fa fa-sign-out" aria-hidden="true"></span> Salir</a>
                 </li>
@@ -51,7 +70,7 @@ if (isset($_SESSION['identificacionId'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </body>
 <footer class="bg-inverse text-white p-1" style="width: 100%; height: 50px; bottom: 0; position: fixed;">
-   <p class="text-center">© 2017 - IngnovaTec.com</p>
+   <p class="text-center">© 2017 - Corp.com</p>
 </footer>
 </html>
 <?php
@@ -65,6 +84,7 @@ if (isset($_SESSION['identificacionId'])) {
     $usuarioCtl = new UsuarioControlador();
     if ($usuarioCtl->validarUsuario($identificacionId, $clave)) {
         $_SESSION['identificacionId'] = $identificacionId;
+        $usuarioCtl->guardarUltima_sesion($identificacionId);
         header("location: inicio.php");
     } else {
         header("location: index.php?mensaje=L001");
