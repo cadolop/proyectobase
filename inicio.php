@@ -48,12 +48,14 @@ if (isset($_SESSION['identificacionId'])) {
         $permiso  = $permisos[$i]->getPermiso();
         if ($permiso == 1) {
             $habilitar = "";
+            $enlace    = "inicio.php?accion=" . $permisos[$i]->getMenu();
         } else {
             $habilitar = " disabled";
+            $enlace    = "#";
         }
 ?>
                 <li class="nav-item active">
-                    <a class="nav-link<?php echo $habilitar?>" href="inicio.php?accion=<?php echo $permisos[$i]->getMenu() ?>"><span class="<?php echo $menu->getIcono()?>" aria-hidden="true"></span> <?php echo $menu->getNombre()?></a>
+                    <a class="nav-link<?php echo $habilitar?>" href="<?php echo $enlace ?>"><span class="<?php echo $menu->getIcono()?>" aria-hidden="true"></span> <?php echo $menu->getNombre()?></a>
                 </li>
 <?php 
     }
@@ -64,13 +66,36 @@ if (isset($_SESSION['identificacionId'])) {
             </ul>
         </div>
     </nav>
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <main>
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<?php 
+    if (isset($_GET['accion'])) {
+        $accion = $_GET['accion'];
+        switch ($accion) {
+            case "1":
+                echo "OPCION UNO";
+                break;
+            case "2":
+                echo "OPCION DOS";
+                break;
+        }
+    } else {
+        echo "INGRESO CORRECTO";
+    }
+?>
+    </main>
 </body>
-<footer class="bg-inverse text-white p-1" style="width: 100%; height: 50px; bottom: 0; position: fixed;">
-   <p class="text-center">© 2017 - Corp.com</p>
+<footer class="bg-faded align-middle" style="width: 100%; border-top: 1px solid #E0E0E0; position: absolute; bottom: 0px">
+    <div class="container">
+        <div class="row" style="font-size: 12px">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0" align="left">Mensaje</div>
+            <div class="col" style="border-right: 1px solid #E0E0E0" align="center">Modulo</div>
+            <div class="col" style="border-right: 1px solid #E0E0E0" align="center">© 2017 - Corp.com</div>
+        </div>
+    </div>
 </footer>
 </html>
 <?php

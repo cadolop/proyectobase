@@ -94,7 +94,13 @@ if (isset($_SESSION['identificacionId'])) {
     });
 </script>
 </body>
-<footer class="bg-inverse text-white p-1" style="width: 100%; height: 50px; bottom: 0; position: fixed;">
-   <p class="text-center">© 2017 - Corp.com</p>
+<footer class="bg-faded align-middle" style="width: 100%; border-top: 1px solid #E0E0E0; position: absolute; bottom: 0px">
+    <div class="container">
+        <div class="row" style="font-size: 12px">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0; border-left: 1px solid #E0E0E0" align="left"></div>
+            <div class="col" style="border-right: 1px solid #E0E0E0" align="center"></div>
+            <div class="col" style="border-right: 1px solid #E0E0E0" align="center">© 2017 - Corp.com</div>
+        </div>
+    </div>
 </footer>
 </html>
